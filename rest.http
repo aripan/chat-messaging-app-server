@@ -1,0 +1,5 @@
+### GET REQUESTS
+GET http://localhost:8080/
+
+### POST REQUESTS
+POST http://localhost:8080/
