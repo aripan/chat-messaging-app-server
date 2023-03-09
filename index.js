@@ -3,10 +3,12 @@ const http = require("http");
 const dotenv = require('dotenv')
 dotenv.config()
 const colors = require("colors");
-const router = require("./router");
 const cors = require("cors");
 const serverSocket = require("./socket");
-const connectToDatabase = require("./dbConnect");
+const connectToDatabase = require("./utils/dbConnect");
+
+// routes
+const usersRouter = require("./routes/userRoutes");
 
 connectToDatabase(process.env.DB_NAME, process.env.USERS_COLLECTION_NAME);
 
@@ -22,6 +24,7 @@ const server = http.createServer(app);
 // start the socket
 serverSocket(server);
 
-app.use(router);
+// router endpoints
+app.use('/api/users', usersRouter);
 
 server.listen(PORT, () => console.log(`👉 Server has started on port ${PORT}`.blue.bold));

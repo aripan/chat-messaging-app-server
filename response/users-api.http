@@ -1,0 +1,23 @@
+### @desc    Register a new user
+### @route   POST /api/users/register
+### @access  public
+POST http://localhost:8000/api/users/register
+content-type: application/json
+
+{
+    "name":"Jane Doe",
+    "email": "jane@example.com",
+    "password": "Aa123456+",
+    "confirmPassword": "Aa123456+"
+}
+
+### @desc    Login an existing user
+### @route   POST /api/users/login
+### @access  public
+POST http://localhost:8000/api/users/login
+content-type: application/json
+
+{
+    "email": "jane@example.com",
+    "password": "Aa123456+"
+}
