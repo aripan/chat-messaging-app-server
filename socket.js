@@ -12,12 +12,16 @@ module.exports = (server) => {
   const startListeners = (socket) => {
     console.log("��� starting listeners");
 
-    socket.on("connect-to-server", ({ email, uid, users }) => {
-      console.log("��� connect-to-server", email, uid, users);
-      const reconnect = allUsers.some((user) => user.email === email);
+    socket.on("connect-to-server", ({ email, uid}) => {
+      console.log("��� connect-to-server", email, uid,);
 
+      const reconnect = allUsers.some((user) => {
+
+        return user.email === email
+      })
       if (reconnect) {
         console.log("��� This user has reconnected");
+        updateUser(email, socket.id)
       }
 
       // add new user
@@ -26,7 +30,7 @@ module.exports = (server) => {
       // send new user to all connected users
       sendMessages(
         "user-connected",
-        allUsers.filter((user) => user.uid !== socket.id),
+        allUsers,
         allUsers
       );
     });
@@ -34,10 +38,10 @@ module.exports = (server) => {
     socket.on("disconnect", () => {
       console.log("��� user disconnected", socket.id);
 
-      const uid = allUsers.find((user) => user.uid === socket.id)
+      const disconnectedUser = allUsers.find((user) => user.uid === socket.id)
 
-      if(uid) {
-        deleteUser(uid)
+      if(disconnectedUser) {
+        deleteUser(disconnectedUser.uid)
         sendMessages(
             "user-disconnected",
             allUsers,
@@ -55,6 +59,18 @@ module.exports = (server) => {
       allUsers.push({ email, uid: socketId });
   };
 
+  const updateUser = (email, socketId) => {
+    allUsers.map((user) => {
+      if (user.email === email) {
+        user.uid = socketId
+      }
+    })
+  }
+
+  const deleteUser = (id) => {
+    allUsers = allUsers.filter((user) => user.uid !== id)
+  }
+
   const sendMessages = (eventName, users, payloadInfo) => {
     console.log(`🥍 Emitting event: ${eventName} to ${users}`);
     users.forEach((user) => {
@@ -64,9 +80,7 @@ module.exports = (server) => {
     });
   };
 
-  const deleteUser = (id) => {
-    allUsers = allUsers.filter((user) => user.uid !== id)
-  }
+
 
   return io;
 };

@@ -187,9 +187,6 @@ const getUsers = async (req, res) => {
   const dataCollection = getCollection();
   const users = await dataCollection.find({}, { projection: { bcryptPassword: 0, bcryptConfirmPassword: 0 } }).toArray();
 
-
-  console.log("🚀 ~ file: userController.js:189 ~ getUsers ~ users:", users)
-
   res.json(users);
 }
 

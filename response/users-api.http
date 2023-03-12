@@ -12,8 +12,8 @@ POST http://localhost:8000/api/users/register
 content-type: application/json
 
 {
-    "name":"John Doe",
-    "email": "john@example.com",
+    "name":"Jane Doe",
+    "email": "jane@example.com",
     "password": "Aa123456+",
     "confirmPassword": "Aa123456+",
     "selectedQuestion":"What was your childhood nickname?",
@@ -27,8 +27,8 @@ POST http://localhost:8000/api/users/login
 content-type: application/json
 
 {
-    "email": "john@example.com",
-    "password": "Aa123456+#*"
+    "email": "leo@example.com",
+    "password": "Aa123456+#"
 }
 
 ### @desc    Confirm user's identity
