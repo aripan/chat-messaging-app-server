@@ -5,12 +5,9 @@ dotenv.config()
 const colors = require("colors");
 const cors = require("cors");
 const serverSocket = require("./socket");
-const connectToDatabase = require("./utils/dbConnect");
 
 // routes
 const usersRouter = require("./routes/userRoutes");
-
-connectToDatabase(process.env.DB_NAME, process.env.USERS_COLLECTION_NAME);
 
 const PORT = process.env.PORT || 8080;
 const app = express();

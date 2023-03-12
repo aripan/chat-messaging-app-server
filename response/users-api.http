@@ -1,3 +1,10 @@
+### @desc    Get all users
+### @route   GET /api/users
+### @access  Private
+GET http://localhost:8000/api/users
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDBjNTQyMzRkNjgxMGNhNWZhMDY5NWYiLCJuYW1lIjoiSm9obiBEb2UiLCJlbWFpbCI6ImpvaG5AZXhhbXBsZS5jb20iLCJpYXQiOjE2Nzg2MjA2NjQsImV4cCI6MTY3OTQ4NDY2NH0.3PqW-1xUWlAS7myRI7yDgj25k2-BE4Vkc6sdPsihYos
+
 ### @desc    Register a new user
 ### @route   POST /api/users/register
 ### @access  public
@@ -5,10 +12,12 @@ POST http://localhost:8000/api/users/register
 content-type: application/json
 
 {
-    "name":"Jane Doe",
-    "email": "jane@example.com",
+    "name":"John Doe",
+    "email": "john@example.com",
     "password": "Aa123456+",
-    "confirmPassword": "Aa123456+"
+    "confirmPassword": "Aa123456+",
+    "selectedQuestion":"What was your childhood nickname?",
+    "answer":"jod"
 }
 
 ### @desc    Login an existing user
@@ -18,6 +27,30 @@ POST http://localhost:8000/api/users/login
 content-type: application/json
 
 {
-    "email": "jane@example.com",
-    "password": "Aa123456+"
+    "email": "john@example.com",
+    "password": "Aa123456+#*"
+}
+
+### @desc    Confirm user's identity
+### @route   POST /api/users/forgotPassword
+### @access  public
+POST http://localhost:8000/api/users/forgotPassword
+content-type: application/json
+
+{
+    "email": "john@example.com",
+    "selectedQuestion":"What was your childhood nickname?",
+    "answer":"jod"
+}
+
+### @desc    Reset user's password
+### @route   PUT /api/users/resetPassword
+### @access  public
+PUT http://localhost:8000/api/users/resetPassword
+content-type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "Aa123456+#*",
+    "confirmPassword": "Aa123456+#*"
 }
